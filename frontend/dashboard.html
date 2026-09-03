@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — SUUQ</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="top-header">
+      <div class="brand-title">
+        <span class="brand-badge"></span>
+        SUUQ
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="notif-btn" aria-label="Notifications">
+          🔔
+          <span class="badge-counter"></span>
+        </button>
+        <button class="icon-btn" id="profile-btn" aria-label="Account Profile">👤</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div style="margin-bottom: 1.5rem;">
+        <h1 style="font-size: 1.25rem; font-weight: 700;" id="user-greeting">Good morning 👋</h1>
+        <p style="color: var(--text-secondary); font-size: 0.85rem;">Here is your operational summary</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1rem;">
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-title">Products</div>
+          <div class="card-value font-mono" id="stat-products">--</div>
+          <a href="products.html" style="font-size: 0.8rem; color: var(--accent-emerald); font-weight: 600; display: inline-block; margin-top: 0.5rem;">View catalog →</a>
+        </div>
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-title">Stock Items</div>
+          <div class="card-value font-mono" id="stat-stock">--</div>
+          <a href="stock.html" style="font-size: 0.8rem; color: var(--accent-emerald); font-weight: 600; display: inline-block; margin-top: 0.5rem;">View stock →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Stock Status Overview</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem;">
+          <div style="text-align: center;">
+            <span class="badge badge-in-stock">🟢 In Stock</span>
+            <div class="font-mono" style="font-size: 1.1rem; font-weight: 700; margin-top: 0.25rem;" id="stock-in">0</div>
+          </div>
+          <div style="text-align: center;">
+            <span class="badge badge-low">🟡 Low</span>
+            <div class="font-mono" style="font-size: 1.1rem; font-weight: 700; margin-top: 0.25rem;" id="stock-low">0</div>
+          </div>
+          <div style="text-align: center;">
+            <span class="badge badge-critical">🔴 Critical</span>
+            <div class="font-mono" style="font-size: 1.1rem; font-weight: 700; margin-top: 0.25rem;" id="stock-critical">0</div>
+          </div>
+          <div style="text-align: center;">
+            <span class="badge badge-out">⚫ Out</span>
+            <div class="font-mono" style="font-size: 1.1rem; font-weight: 700; margin-top: 0.25rem;" id="stock-out">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+        <div class="card" style="margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <div class="card-title" style="margin-bottom: 0;">Debtors Outstanding</div>
+            <a href="debtors.html" style="font-size: 0.8rem; color: var(--accent-emerald); font-weight: 600;">View Debtors →</a>
+          </div>
+          <div class="card-value font-mono" id="stat-debtors">KSh 0</div>
+        </div>
+
+        <div class="card" style="margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <div class="card-title" style="margin-bottom: 0;">Creditors Outstanding</div>
+            <a href="creditors.html" style="font-size: 0.8rem; color: var(--accent-emerald); font-weight: 600;">View Creditors →</a>
+          </div>
+          <div class="card-value font-mono" id="stat-creditors">KSh 0</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="margin-bottom: 0.75rem;">Low & Critical Stock Alerts</div>
+        <div id="low-stock-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <div style="color: var(--text-muted); font-size: 0.85rem;">Checking stock levels...</div>
+        </div>
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item active">
+        <span>🏠</span>
+        <span>Dash</span>
+      </a>
+      <a href="products.html" class="nav-item">
+        <span>📦</span>
+        <span>Products</span>
+      </a>
+      <a href="stock.html" class="nav-item">
+        <span>📊</span>
+        <span>Stock</span>
+      </a>
+      <a href="debtors.html" class="nav-item">
+        <span>👥</span>
+        <span>Debtors</span>
+      </a>
+      <button class="nav-item" id="more-menu-btn">
+        <span>☰</span>
+        <span>More</span>
+      </button>
+    </nav>
+
+    <div class="modal-overlay" id="more-modal">
+      <div class="modal-sheet">
+        <div class="sheet-handle"></div>
+        <div style="font-weight: 700; margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 0.05em;">QUICK MENU</div>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="creditors.html" class="btn btn-secondary" style="justify-content: flex-start; gap: 0.75rem;">🏢 Creditors</a>
+          <a href="reports.html" class="btn btn-secondary" style="justify-content: flex-start; gap: 0.75rem;">📈 Reports</a>
+          <a href="ai.html" class="btn btn-secondary" style="justify-content: flex-start; gap: 0.75rem;">🤖 AI Analysis</a>
+          <button id="logout-btn" class="btn btn-secondary" style="justify-content: flex-start; gap: 0.75rem; color: var(--status-critical);">🚪 Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
