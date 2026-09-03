@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUUQ — Simple Business Management</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="top-header">
+      <div class="brand-title">
+        <span class="brand-badge"></span>
+        SUUQ
+      </div>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-secondary" style="min-height: 36px; padding: 0 0.75rem; font-size: 0.85rem;">Login</a>
+        <a href="register.html" class="btn btn-primary" style="min-height: 36px; padding: 0 0.75rem; font-size: 0.85rem;">Register</a>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section style="text-align: center; padding: 2.5rem 0 2rem;">
+        <h1 style="font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem;">
+          Manage Your Business Smarter
+        </h1>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1rem;">
+          Products. Stock. Debtors. Creditors. Reports.
+        </p>
+        <div style="display: flex; gap: 0.75rem; justify-content: center; max-width: 320px; margin: 0 auto;">
+          <a href="register.html" class="btn btn-primary">Register</a>
+          <a href="login.html" class="btn btn-secondary">Login</a>
+        </div>
+      </section>
+
+      <section style="margin-top: 2rem;">
+        <div class="card-title" style="text-align: center; margin-bottom: 1rem;">SUUQ FEATURES</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem;">
+          <div class="card" style="margin-bottom: 0; text-align: center;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">📦</div>
+            <div style="font-weight: 600;">Products</div>
+          </div>
+          <div class="card" style="margin-bottom: 0; text-align: center;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">📊</div>
+            <div style="font-weight: 600;">Stock</div>
+          </div>
+          <div class="card" style="margin-bottom: 0; text-align: center;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">👥</div>
+            <div style="font-weight: 600;">Debtors</div>
+          </div>
+          <div class="card" style="margin-bottom: 0; text-align: center;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">🏢</div>
+            <div style="font-weight: 600;">Creditors</div>
+          </div>
+          <div class="card" style="margin-bottom: 0; text-align: center;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">📈</div>
+            <div style="font-weight: 600;">Reports</div>
+          </div>
+          <div class="card" style="margin-bottom: 0; text-align: center;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">🤖</div>
+            <div style="font-weight: 600;">AI Analysis</div>
+          </div>
+        </div>
+      </section>
+
+      <section style="margin-top: 1.5rem;">
+        <div class="ai-card">
+          <div class="ai-header">
+            <span>✨ AI ANALYSIS</span>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">
+            Understand your business using your existing operational data with diagnostic reporting powered by Google Gemini.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>

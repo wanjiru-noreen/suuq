@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Analysis — SUUQ</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="top-header">
+      <div class="brand-title">
+        <span class="brand-badge"></span>
+        SUUQ
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="notif-btn" aria-label="Notifications">🔔</button>
+        <button class="icon-btn" id="profile-btn" aria-label="Account Profile">👤</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div style="margin-bottom: 1.25rem;">
+        <h1 style="font-size: 1.25rem; font-weight: 700;">Diagnostic AI Analysis</h1>
+        <p style="color: var(--text-secondary); font-size: 0.85rem;">Pattern insights based on operational data</p>
+      </div>
+
+      <div class="ai-card" style="margin-bottom: 1.25rem;">
+        <div class="ai-header">
+          <span>✨ GEMINI DIAGNOSTIC ENGINE</span>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1rem;">
+          Generate diagnostic reports on inventory distribution, stock velocity patterns, and ledger exposure.
+        </p>
+        <button class="btn btn-primary" id="run-ai-btn" style="width: auto; min-height: 38px; padding: 0 1rem; font-size: 0.85rem;">Run Diagnostics</button>
+      </div>
+
+      <div class="card" id="ai-results-card" style="display: none;">
+        <div class="card-title" style="margin-bottom: 0.75rem;">Analysis Results</div>
+        <div id="ai-output" style="color: var(--text-primary); font-size: 0.9rem; line-height: 1.5; white-space: pre-line;"></div>
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span>🏠</span>
+        <span>Dash</span>
+      </a>
+      <a href="products.html" class="nav-item">
+        <span>📦</span>
+        <span>Products</span>
+      </a>
+      <a href="stock.html" class="nav-item">
+        <span>📊</span>
+        <span>Stock</span>
+      </a>
+      <a href="debtors.html" class="nav-item">
+        <span>👥</span>
+        <span>Debtors</span>
+      </a>
+      <button class="nav-item" id="more-menu-btn">
+        <span>☰</span>
+        <span>More</span>
+      </button>
+    </nav>
+
+    <div class="modal-overlay" id="more-modal">
+      <div class="modal-sheet">
+        <div class="sheet-handle"></div>
+        <div style="font-weight: 700; margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 0.05em;">QUICK MENU</div>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="creditors.html" class="btn btn-secondary" style="justify-content: flex-start; gap: 0.75rem;">🏢 Creditors</a>
+          <a href="reports.html" class="btn btn-secondary" style="justify-content: flex-start; gap: 0.75rem;">📈 Reports</a>
+          <a href="ai.html" class="btn btn-secondary" style="justify-content: flex-start; gap: 0.75rem;">🤖 AI Analysis</a>
+          <button id="logout-btn" class="btn btn-secondary" style="justify-content: flex-start; gap: 0.75rem; color: var(--status-critical);">🚪 Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/ai.js"></script>
+</body>
+</html>
