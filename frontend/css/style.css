@@ -1,27 +1,41 @@
 :root {
   /* Color Palette */
-  --bg-dark: #0B0F19;         /* Rich Charcoal / Dark Navy */
-  --bg-card: #141A28;         /* Dark Slate Card Background */
-  --bg-card-hover: #1E293B;   /* Interactive Hover Slate */
-  --bg-input: #172033;        /* Input Field Background */
-  
+  --bg-dark: #0b0f19;
+  /* Rich Charcoal / Dark Navy */
+  --bg-card: #141a28;
+  /* Dark Slate Card Background */
+  --bg-card-hover: #1e293b;
+  /* Interactive Hover Slate */
+  --bg-input: #172033;
+  /* Input Field Background */
+
   /* Primary & Accents */
-  --accent-emerald: #10B981;  /* Warm Emerald Accent */
+  --accent-emerald: #10b981;
+  /* Warm Emerald Accent */
   --accent-emerald-glow: rgba(16, 185, 129, 0.15);
   --accent-emerald-hover: #059669;
-  
+
   /* Status Colors */
-  --status-in-stock: #10B981; /* Green */
-  --status-low: #F59E0B;      /* Amber / Yellow */
-  --status-critical: #EF4444; /* Red */
-  --status-out: #6B7280;      /* Dark Gray */
+  --status-in-stock: #10b981;
+  /* Green */
+  --status-low: #f59e0b;
+  /* Amber / Yellow */
+  --status-critical: #ef4444;
+  /* Red */
+  --status-out: #6b7280;
+  /* Dark Gray */
 
   /* Text & Typography */
-  --text-primary: #F9FAFB;   /* High Contrast White */
-  --text-secondary: #9CA3AF; /* Muted Slate Gray */
-  --text-muted: #6B7280;     /* Darker Hint Text */
-  
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --text-primary: #f9fafb;
+  /* High Contrast White */
+  --text-secondary: #9ca3af;
+  /* Muted Slate Gray */
+  --text-muted: #6b7280;
+  /* Darker Hint Text */
+
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "Courier New", monospace;
 
   /* Layout Dimensions */
@@ -29,7 +43,7 @@
   --header-height-desktop: 64px;
   --bottom-nav-height: 64px;
   --sidebar-width: 240px;
-  
+
   /* Utilities */
   --border-color: rgba(255, 255, 255, 0.08);
   --radius-sm: 6px;
@@ -41,13 +55,16 @@
 
 /* 2. BASE RESET & BOX MODEL
    -------------------------------------------------------------------------- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html, body {
+html,
+body {
   background-color: var(--bg-dark);
   color: var(--text-primary);
   font-family: var(--font-sans);
@@ -63,7 +80,10 @@ a {
   text-decoration: none;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font: inherit;
   color: inherit;
   background: none;
@@ -80,9 +100,19 @@ button, input, select, textarea {
 /* 3. LAYOUT SHELL & CONTAINERS
    -------------------------------------------------------------------------- */
 #app {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  /* Multi-layered background: Deep navy tint + high-end abstract texture image + emerald ambient glows */
+  background:
+    linear-gradient(180deg, rgba(10, 15, 24, .85) 0%, rgba(7, 11, 18, .95) 100%),
+    url('../assets/suuq.jpeg') no-repeat center center;
+  background-size: cover;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  position: relative;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+  margin: 0 auto;
 }
 
 /* Top App Bar */
@@ -190,7 +220,8 @@ button, input, select, textarea {
   font-size: 0.7rem;
   font-weight: 500;
   gap: 3px;
-  min-height: 48px; /* Touch Target Compliance */
+  min-height: 48px;
+  /* Touch Target Compliance */
   transition: color var(--transition-fast);
 }
 
@@ -261,10 +292,25 @@ button, input, select, textarea {
   font-weight: 600;
 }
 
-.badge-in-stock { background-color: rgba(16, 185, 129, 0.15); color: var(--status-in-stock); }
-.badge-low      { background-color: rgba(245, 158, 11, 0.15); color: var(--status-low); }
-.badge-critical { background-color: rgba(239, 68, 68, 0.15);  color: var(--status-critical); }
-.badge-out      { background-color: rgba(107, 114, 128, 0.15); color: var(--status-out); }
+.badge-in-stock {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: var(--status-in-stock);
+}
+
+.badge-low {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: var(--status-low);
+}
+
+.badge-critical {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--status-critical);
+}
+
+.badge-out {
+  background-color: rgba(107, 114, 128, 0.15);
+  color: var(--status-out);
+}
 
 /* Buttons */
 .btn {
@@ -331,7 +377,8 @@ button, input, select, textarea {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   display: flex;
-  align-items: flex-end; /* Mobile Bottom Sheet */
+  align-items: flex-end;
+  /* Mobile Bottom Sheet */
   justify-content: center;
   opacity: 0;
   pointer-events: none;
@@ -375,7 +422,8 @@ button, input, select, textarea {
   }
 
   .bottom-nav {
-    display: none; /* Hide bottom nav on desktop */
+    display: none;
+    /* Hide bottom nav on desktop */
   }
 
   .main-content {
@@ -383,7 +431,8 @@ button, input, select, textarea {
   }
 
   .modal-overlay {
-    align-items: center; /* Centered modal on desktop */
+    align-items: center;
+    /* Centered modal on desktop */
   }
 
   .modal-sheet {

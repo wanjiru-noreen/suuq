@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SUUQ — Simple Business Management</title>
+  <title>SUUQ — Smart Business Management</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,67 +14,73 @@
         SUUQ
       </div>
       <div class="header-actions">
-        <a href="login.html" class="btn btn-secondary" style="min-height: 36px; padding: 0 0.75rem; font-size: 0.85rem;">Login</a>
-        <a href="register.html" class="btn btn-primary" style="min-height: 36px; padding: 0 0.75rem; font-size: 0.85rem;">Register</a>
+        <a href="login.html" class="btn btn-secondary" style="min-height: 36px; padding: 0 0.85rem; font-size: 0.8rem;">Login</a>
       </div>
     </header>
 
-    <main class="main-content">
-      <section style="text-align: center; padding: 2.5rem 0 2rem;">
-        <h1 style="font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem;">
-          Manage Your Business Smarter
+    <main class="main-content" style="padding: 1.5rem 1.25rem 6rem 1.25rem;">
+      
+      <div style="text-align: center; padding: 1.5rem 0 2rem 0;">
+        <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 0.3rem 0.85rem; border-radius: 20px; font-size: 0.75rem; color: var(--accent-emerald); font-weight: 600; margin-bottom: 1.25rem; box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);">
+          <span class="brand-badge" style="box-shadow: 0 0 8px var(--accent-emerald);"></span>
+          Smart Inventory &amp; Ledgers Active
+        </div>
+        <h1 style="font-size: 2rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 0.85rem; color: #fff;">
+          Run your shop with absolute clarity.
         </h1>
-        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1rem;">
-          Products. Stock. Debtors. Creditors. Reports.
+        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.75rem; max-width: 360px; margin-left: auto; margin-right: auto;">
+          Streamline products, monitor live stock levels, and track customer ledgers in one minimalist workspace.
         </p>
-        <div style="display: flex; gap: 0.75rem; justify-content: center; max-width: 320px; margin: 0 auto;">
-          <a href="register.html" class="btn btn-primary">Register</a>
-          <a href="login.html" class="btn btn-secondary">Login</a>
-        </div>
-      </section>
 
-      <section style="margin-top: 2rem;">
-        <div class="card-title" style="text-align: center; margin-bottom: 1rem;">SUUQ FEATURES</div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem;">
-          <div class="card" style="margin-bottom: 0; text-align: center;">
-            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">📦</div>
-            <div style="font-weight: 600;">Products</div>
-          </div>
-          <div class="card" style="margin-bottom: 0; text-align: center;">
-            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">📊</div>
-            <div style="font-weight: 600;">Stock</div>
-          </div>
-          <div class="card" style="margin-bottom: 0; text-align: center;">
-            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">👥</div>
-            <div style="font-weight: 600;">Debtors</div>
-          </div>
-          <div class="card" style="margin-bottom: 0; text-align: center;">
-            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">🏢</div>
-            <div style="font-weight: 600;">Creditors</div>
-          </div>
-          <div class="card" style="margin-bottom: 0; text-align: center;">
-            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">📈</div>
-            <div style="font-weight: 600;">Reports</div>
-          </div>
-          <div class="card" style="margin-bottom: 0; text-align: center;">
-            <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">🤖</div>
-            <div style="font-weight: 600;">AI Analysis</div>
-          </div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <a href="register.html" class="btn btn-primary" style="width: 100%;">Get Started Free</a>
+          <a href="login.html" class="btn btn-secondary" style="width: 100%;">Sign In to Account</a>
         </div>
-      </section>
+      </div>
 
-      <section style="margin-top: 1.5rem;">
-        <div class="ai-card">
-          <div class="ai-header">
-            <span>✨ AI ANALYSIS</span>
-          </div>
-          <p style="color: var(--text-secondary); font-size: 0.9rem;">
-            Understand your business using your existing operational data with diagnostic reporting powered by Google Gemini.
-          </p>
+      <div style="margin-top: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+          <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted);">Core Modules</div>
+          <span style="font-size: 0.7rem; color: var(--accent-emerald);">Swipe for more ➔</span>
         </div>
-      </section>
-    </main>
+
+        <!-- Hybrid Horizontal Swipeable Container Centered -->
+<div style="display: flex; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0.5rem 1rem; margin-bottom: 0.75rem; scrollbar-width: none; justify-content: center; flex-wrap: wrap;">
+  <div class="card" style="min-width: 140px; flex: 0 0 auto; scroll-snap-align: start; margin-bottom: 0; padding: 1rem;">
+    <div style="font-size: 1.25rem; margin-bottom: 0.4rem;">📦</div>
+    <div style="font-weight: 700; font-size: 0.85rem; margin-bottom: 0.15rem;">Products</div>
+    <div style="font-size: 0.7rem; color: var(--text-secondary);">Catalog items</div>
   </div>
-  <script type="module" src="js/auth.js"></script>
+  <div class="card" style="min-width: 140px; flex: 0 0 auto; scroll-snap-align: start; margin-bottom: 0; padding: 1rem;">
+    <div style="font-size: 1.25rem; margin-bottom: 0.4rem;">📊</div>
+    <div style="font-weight: 700; font-size: 0.85rem; margin-bottom: 0.15rem;">Stock</div>
+    <div style="font-size: 0.7rem; color: var(--text-secondary);">Live levels</div>
+  </div>
+  <div class="card" style="min-width: 140px; flex: 0 0 auto; scroll-snap-align: start; margin-bottom: 0; padding: 1rem;">
+    <div style="font-size: 1.25rem; margin-bottom: 0.4rem;">👥</div>
+    <div style="font-weight: 700; font-size: 0.85rem; margin-bottom: 0.15rem;">Debtors</div>
+    <div style="font-size: 0.7rem; color: var(--text-secondary);">Customer log</div>
+  </div>
+  <div class="card" style="min-width: 140px; flex: 0 0 auto; scroll-snap-align: start; margin-bottom: 0; padding: 1rem;">
+    <div style="font-size: 1.25rem; margin-bottom: 0.4rem;">🏢</div>
+    <div style="font-weight: 700; font-size: 0.85rem; margin-bottom: 0.15rem;">Creditors</div>
+    <div style="font-size: 0.7rem; color: var(--text-secondary);">Supplier dues</div>
+  </div>
+</div>
+
+    </main>
+
+    <div style="position: fixed; bottom: 1rem; left: 1rem; right: 1rem; max-width: 448px; margin: 0 auto; z-index: 60;">
+      <div class="ai-card" style="box-shadow: 0 10px 30px rgba(0,0,0,0.8); margin-bottom: 0; backdrop-filter: blur(16px);">
+        <div class="ai-header" style="display: flex; justify-content: space-between; align-items: center;">
+          <span>✨ GEMINI DIAGNOSTIC ENGINE</span>
+          <a href="login.html" style="color: var(--accent-emerald); font-size: 0.75rem; text-decoration: none; font-weight: 700;">Try Now →</a>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.8rem; line-height: 1.3; margin-bottom: 0;">
+          Instant pattern analysis on stock velocity and ledger exposure to prevent bottlenecks.
+        </p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
