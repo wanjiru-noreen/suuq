@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — SUUQ</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app" style="justify-content: center; align-items: center; padding: 1.5rem;">
+    <div style="width: 100%; max-width: 400px;">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <div class="brand-title" style="justify-content: center; font-size: 1.75rem; margin-bottom: 0.5rem;">
+          <span class="brand-badge" style="width: 10px; height: 10px;"></span>
+          SUUQ
+        </div>
+        <h1 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">Welcome Back</h1>
+      </div>
+
+      <div class="card">
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" placeholder="noreen@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+          </div>
+
+          <div id="error-message" style="color: var(--status-critical); font-size: 0.85rem; margin-bottom: 1rem; display: none;"></div>
+
+          <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">Login</button>
+        </form>
+      </div>
+
+      <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+        Don't have an account? 
+        <a href="register.html" style="color: var(--accent-emerald); font-weight: 600;">Register</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { auth } from './js/auth.js';
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorDiv = document.getElementById('error-message');
+
+      errorDiv.style.display = 'none';
+
+      try {
+        await auth.login(email, password);
+      } catch (err) {
+        errorDiv.textContent = err.message || 'Login failed. Invalid credentials.';
+        errorDiv.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
