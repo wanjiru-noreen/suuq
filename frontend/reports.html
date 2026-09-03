@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports — SUUQ</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="top-header">
+      <div class="brand-title">
+        <span class="brand-badge"></span>
+        SUUQ
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="notif-btn" aria-label="Notifications">🔔</button>
+        <button class="icon-btn" id="profile-btn" aria-label="Account Profile">👤</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div style="margin-bottom: 1.25rem;">
+        <h1 style="font-size: 1.25rem; font-weight: 700;">Operational Reports</h1>
+        <p style="color: var(--text-secondary); font-size: 0.85rem;">Summary metrics across stock and ledgers</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1rem;">
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-title">Total Products</div>
+          <div class="card-value font-mono" id="rep-products">--</div>
+        </div>
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-title">Stock Items</div>
+          <div class="card-value font-mono" id="rep-stock">--</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Ledger Totals</div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);">
+            <span style="font-size: 0.9rem; color: var(--text-secondary);">Total Debtors Owed</span>
+            <span class="font-mono" style="font-weight: 700; color: var(--status-critical);" id="rep-debtors">KSh 0</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.9rem; color: var(--text-secondary);">Total Creditors Owed</span>
+            <span class="font-mono" style="font-weight: 700; color: var(--accent-emerald);" id="rep-creditors">KSh 0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="margin-bottom: 0.5rem;">Inventory Health Distribution</div>
+        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">Breakdown of stock status levels across catalog</div>
+        
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;" id="health-breakdown">
+          <div style="display: flex; justify-content: space-between;">
+            <span>🟢 In Stock</span>
+            <span class="font-mono font-weight: 600;" id="health-in">0</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>🟡 Low Stock</span>
+            <span class="font-mono font-weight: 600;" id="health-low">0</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>🔴 Critical Stock</span>
+            <span class="font-mono font-weight: 600;" id="health-critical">0</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>⚫ Out of Stock</span>
+            <span class="font-mono font-weight: 600;" id="health-out">0</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span>🏠</span>
+        <span>Dash</span>
+      </a>
+      <a href="products.html" class="nav-item">
+        <span>📦</span>
+        <span>Products</span>
+      </a>
+      <a href="stock.html" class="nav-item">
+        <span>📊</span>
+        <span>Stock</span>
+      </a>
+      <a href="debtors.html" class="nav-item">
+        <span>👥</span>
+        <span>Debtors</span>
+      </a>
+      <button class="nav-item" id="more-menu-btn">
+        <span>☰</span>
+        <span>More</span>
+      </button>
+    </nav>
+
+    <div class="modal-overlay" id="more-modal">
+      <div class="modal-sheet">
+        <div class="sheet-handle"></div>
+        <div style="font-weight: 700; margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 0.05em;">QUICK MENU</div>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="creditors.html" class="btn btn-secondary" style="justify-content: flex-start; gap: 0.75rem;">🏢 Creditors</a>
+          <a href="reports.html" class="btn btn-secondary" style="justify-content: flex-start; gap: 0.75rem;">📈 Reports</a>
+          <a href="ai.html" class="btn btn-secondary" style="justify-content: flex-start; gap: 0.75rem;">🤖 AI Analysis</a>
+          <button id="logout-btn" class="btn btn-secondary" style="justify-content: flex-start; gap: 0.75rem; color: var(--status-critical);">🚪 Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/reports.js"></script>
+</body>
+</html>
