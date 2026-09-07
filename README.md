@@ -56,6 +56,10 @@ AI is used for:
 
 ```text
 suuq/
+├── .github/
+│   ├── pull_request_template.md
+│   └── workflows/
+│       └── pr-validation.yml
 ├── backend/
 │   ├── cmd/
 │   ├── database/
@@ -80,8 +84,15 @@ suuq/
 │   ├── reports.html
 │   └── ai.html
 │
+├── development/
+│   ├── backend.Dockerfile
+│   ├── database.Dockerfile
+│   ├── frontend.Dockerfile
+│   └── nginx.conf
 ├── docs/
+├── .dockerignore
 ├── docker-compose.yml
+├── Makefile
 └── README.md
 ```
 
