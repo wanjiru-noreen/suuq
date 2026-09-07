@@ -24,6 +24,14 @@ jobs:
           go-version-file: backend/go.mod
           cache-dependency-path: backend/go.sum
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check code formatting
+        run: make format-check
+
       - name: Run backend tests
         working-directory: backend
         run: go test ./...
