@@ -1,0 +1,5 @@
+.git
+.gitignore
+**/.DS_Store
+backend/suuq-server
+backend/*.db

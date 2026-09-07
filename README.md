@@ -56,6 +56,10 @@ AI is used for:
 
 ```text
 suuq/
+├── .github/
+│   ├── pull_request_template.md
+│   └── workflows/
+│       └── pr-validation.yml
 ├── backend/
 │   ├── cmd/
 │   ├── database/
@@ -80,10 +84,38 @@ suuq/
 │   ├── reports.html
 │   └── ai.html
 │
+├── development/
+│   ├── backend.Dockerfile
+│   ├── database.Dockerfile
+│   ├── frontend.Dockerfile
+│   └── nginx.conf
 ├── docs/
+├── .dockerignore
 ├── docker-compose.yml
+├── Makefile
 └── README.md
 ```
+
+## Run with Docker
+
+Docker Compose starts the frontend, Go backend, and persistent SQLite volume together:
+
+```bash
+make up
+```
+
+Open the frontend at <http://localhost:3000>. The backend health endpoint is available at <http://localhost:8080/api/health>.
+
+Useful commands:
+
+```bash
+make logs    # Follow service logs
+make status  # Show container status
+make down   # Stop the services
+make clean  # Stop services and remove the SQLite volume
+```
+
+SQLite is embedded in the Go backend. The `database` container initializes the shared named volume, while the backend owns database connections and schema access.
 
 ## Architecture
 
