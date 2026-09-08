@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS transactions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    business_id INTEGER NOT NULL,
+
+    debtor_id INTEGER,
+
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (business_id) REFERENCES businesses(id) ON DELETE CASCADE,
+
+    FOREIGN KEY (debtor_id) REFERENCES debtors(id) ON DELETE SET NULL
+);
