@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"suuq/database"
+	"suuq/internal/auth"
 	"suuq/routes"
 )
 
@@ -20,9 +21,18 @@ func main() {
 		log.Fatal(err)
 	}
 	defer db.Close()
+	if err := database.Migrate(db); err != nil {
+		log.Fatal(err)
+	}
+
+	secret := os.Getenv("AUTH_SECRET")
+	if secret == "" {
+		secret = "development-only-change-me"
+	}
+	authService := auth.NewService(db, secret)
 
 	// Initialize all application routes
-	router := routes.SetupRoutes()
+	router := routes.SetupRoutes(authService)
 
 	// Configure the HTTP server
 	server := &http.Server{

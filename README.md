@@ -63,6 +63,8 @@ suuq/
 ├── backend/
 │   ├── cmd/
 │   ├── database/
+│   │   ├── migrations/
+│   │   └── sqlite.go
 │   ├── internal/
 │   ├── middleware/
 │   ├── models/
@@ -91,6 +93,8 @@ suuq/
 │   └── nginx.conf
 ├── docs/
 ├── .dockerignore
+├── .prettierignore
+├── .prettierrc.json
 ├── docker-compose.yml
 ├── Makefile
 └── README.md
@@ -116,6 +120,22 @@ make clean  # Stop services and remove the SQLite volume
 ```
 
 SQLite is embedded in the Go backend. The `database` container initializes the shared named volume, while the backend owns database connections and schema access.
+
+## Code Formatting
+
+Format all backend and frontend source files with:
+
+```bash
+make format
+```
+
+Check formatting without changing files with:
+
+```bash
+make format-check
+```
+
+Go files use `gofmt`. Frontend HTML, CSS, and JavaScript files use the pinned Prettier version. Pull requests targeting `development` or `main` run the formatting check, backend tests, and Docker Compose validation in GitHub Actions. Unformatted pull requests fail validation until `make format` is run.
 
 ## Architecture
 
