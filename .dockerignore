@@ -3,3 +3,6 @@
 **/.DS_Store
 backend/suuq-server
 backend/*.db
+.env
+.env.*
+!.env.example
