@@ -18,13 +18,14 @@ services:
       dockerfile: ../development/backend.Dockerfile
     environment:
       DB_PATH: /data/suuq.db
+      AUTH_SECRET: ${AUTH_SECRET:?Set AUTH_SECRET to a random secret of at least 32 bytes}
     volumes:
       - suuq-data:/data
     depends_on:
       database:
         condition: service_healthy
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
 
   frontend:
     build:

@@ -34,7 +34,13 @@ jobs:
 
       - name: Run backend tests
         working-directory: backend
-        run: go test ./...
+        run: go test -race ./...
+
+      - name: Run backend static checks
+        working-directory: backend
+        run: go vet ./...
 
       - name: Validate Docker Compose configuration
+        env:
+          AUTH_SECRET: ci-validation-only-not-a-deployment-secret
         run: docker compose config --quiet
