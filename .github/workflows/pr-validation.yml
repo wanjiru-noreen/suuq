@@ -44,3 +44,31 @@ jobs:
         env:
           AUTH_SECRET: ci-validation-only-not-a-deployment-secret
         run: docker compose config --quiet
+
+      - name: Compose rejects missing AUTH_SECRET
+        # The :? expansion in docker-compose.yml must cause `config` to fail
+        # when AUTH_SECRET is absent, protecting the startup contract.
+        run: |
+          if docker compose config --quiet 2>/dev/null; then
+            echo "ERROR: docker compose config succeeded without AUTH_SECRET" >&2
+            exit 1
+          fi
+
+      - name: Compose passes configured secret to backend
+        # Confirms the resolved configuration actually contains the secret so
+        # a misconfigured substitution cannot silently pass an empty value.
+        env:
+          AUTH_SECRET: ci-validation-only-not-a-deployment-secret
+        run: |
+          docker compose config | grep -F "AUTH_SECRET: ci-validation-only-not-a-deployment-secret"
+
+      - name: Compose accepts .env.example as a template
+        # Copies .env.example to .env and supplies a real secret via the
+        # environment (which takes precedence over the file). Verifies that
+        # the example file is a usable starting point for new developers.
+        env:
+          AUTH_SECRET: ci-validation-only-not-a-deployment-secret
+        run: |
+          cp .env.example .env
+          docker compose config --quiet
+          rm .env
