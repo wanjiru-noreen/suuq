@@ -105,3 +105,23 @@ func TestLoadDevelopmentEnvMalformedFileDoesNotLeakSecrets(t *testing.T) {
 		t.Fatal("error leaked secret")
 	}
 }
+
+func TestLoadDevelopmentEnvUnreadableFile(t *testing.T) {
+	if os.Getuid() == 0 {
+		t.Skip("root can read files regardless of mode")
+	}
+	root := t.TempDir()
+	path := filepath.Join(root, ".env")
+	if err := os.WriteFile(path, []byte("AUTH_SECRET=should-not-load\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Chmod(path, 0000); err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { os.Chmod(path, 0600) })
+	err := loadDevelopmentEnv(root)
+	if err == nil {
+		t.Fatal("expected error for unreadable .env file, got nil")
+	}
+}
+

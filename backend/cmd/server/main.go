@@ -27,6 +27,9 @@ func validateSecret(secret string) error {
 	if len(strings.TrimSpace(secret)) < 32 {
 		return errors.New("AUTH_SECRET must contain at least 32 bytes; generate it with openssl rand -hex 32")
 	}
+	if secret == "replace-with-a-random-secret-of-at-least-32-bytes" {
+		return errors.New("AUTH_SECRET is the .env.example placeholder; generate a real secret with openssl rand -hex 32")
+	}
 	return nil
 }
 
@@ -66,6 +69,9 @@ func run() error {
 	log.Println("Suuq backend listening on :8080")
 	select {
 	case err := <-result:
+		if errors.Is(err, http.ErrServerClosed) {
+			return nil
+		}
 		return err
 	case <-ctx.Done():
 		stop()
