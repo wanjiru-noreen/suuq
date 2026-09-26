@@ -9,10 +9,13 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"io"
 	"net/http"
+	"net/mail"
 	"strings"
 	"time"
 
+	"github.com/mattn/go-sqlite3"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -55,8 +58,8 @@ func (s *Service) Register(w http.ResponseWriter, r *http.Request) {
 	}
 	input.Email = strings.ToLower(strings.TrimSpace(input.Email))
 	input.Name = strings.TrimSpace(input.Name)
-	if input.Name == "" || !strings.Contains(input.Email, "@") || len(input.Password) < 8 {
-		writeError(w, http.StatusBadRequest, "name, a valid email, and a password of at least 8 characters are required")
+	if input.Name == "" || !validEmail(input.Email) || len(input.Name) > 200 || len(input.Password) < 8 || len(input.Password) > 72 {
+		writeError(w, http.StatusBadRequest, "name (up to 200 bytes), a valid email, and a password of 8 to 72 bytes are required")
 		return
 	}
 
@@ -65,9 +68,10 @@ func (s *Service) Register(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusInternalServerError, "could not secure password")
 		return
 	}
-	result, err := s.db.Exec("INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)", input.Name, input.Email, string(hash))
+	result, err := s.db.ExecContext(r.Context(), "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)", input.Name, input.Email, string(hash))
 	if err != nil {
-		if strings.Contains(strings.ToLower(err.Error()), "unique") {
+		var constraint sqlite3.Error
+		if errors.As(err, &constraint) && constraint.ExtendedCode == sqlite3.ErrConstraintUnique {
 			writeError(w, http.StatusConflict, errEmailExists.Error())
 			return
 		}
@@ -97,7 +101,11 @@ func (s *Service) Login(w http.ResponseWriter, r *http.Request) {
 	input.Email = strings.ToLower(strings.TrimSpace(input.Email))
 	var userID int64
 	var passwordHash, name string
-	err := s.db.QueryRow("SELECT id, name, password_hash FROM users WHERE email = ?", input.Email).Scan(&userID, &name, &passwordHash)
+	err := s.db.QueryRowContext(r.Context(), "SELECT id, name, password_hash FROM users WHERE email = ?", input.Email).Scan(&userID, &name, &passwordHash)
+	if err != nil && !errors.Is(err, sql.ErrNoRows) {
+		writeError(w, http.StatusInternalServerError, "could not load user")
+		return
+	}
 	if err != nil || bcrypt.CompareHashAndPassword([]byte(passwordHash), []byte(input.Password)) != nil {
 		writeError(w, http.StatusUnauthorized, errInvalidCredentials.Error())
 		return
@@ -118,7 +126,7 @@ func (s *Service) Me(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var current user
-	err := s.db.QueryRow("SELECT id, name, email FROM users WHERE id = ?", userID).Scan(&current.ID, &current.Name, &current.Email)
+	err := s.db.QueryRowContext(r.Context(), "SELECT id, name, email FROM users WHERE id = ?", userID).Scan(&current.ID, &current.Name, &current.Email)
 	if errors.Is(err, sql.ErrNoRows) {
 		writeError(w, http.StatusUnauthorized, "user not found")
 		return
@@ -196,9 +204,32 @@ func UserID(ctx context.Context) (int64, bool) {
 	return userID, ok
 }
 
+func validEmail(value string) bool {
+	address, err := mail.ParseAddress(value)
+	return err == nil && address.Address == value && len(value) <= 254
+}
+
 func decodeJSON(w http.ResponseWriter, r *http.Request, value any) bool {
-	if json.NewDecoder(r.Body).Decode(value) != nil {
-		writeError(w, http.StatusBadRequest, "invalid JSON body")
+	r.Body = http.MaxBytesReader(w, r.Body, 16<<10)
+	decoder := json.NewDecoder(r.Body)
+	decoder.DisallowUnknownFields()
+	err := decoder.Decode(value)
+	if err == nil {
+		var extra any
+		if trailing := decoder.Decode(&extra); trailing != io.EOF {
+			if trailing == nil {
+				trailing = errors.New("multiple JSON values")
+			}
+			err = trailing
+		}
+	}
+	if err != nil {
+		var tooLarge *http.MaxBytesError
+		if errors.As(err, &tooLarge) {
+			writeError(w, http.StatusRequestEntityTooLarge, "request body too large")
+		} else {
+			writeError(w, http.StatusBadRequest, "invalid JSON body")
+		}
 		return false
 	}
 	return true
@@ -206,6 +237,8 @@ func decodeJSON(w http.ResponseWriter, r *http.Request, value any) bool {
 
 func writeJSON(w http.ResponseWriter, status int, value any) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "no-store")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(status)
 	json.NewEncoder(w).Encode(value)
 }

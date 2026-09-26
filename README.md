@@ -104,9 +104,14 @@ suuq/
 
 Docker Compose starts the frontend, Go backend, and persistent SQLite volume together:
 
+Copy the development configuration once (keep `.env` uncommitted):
+
 ```bash
+(umask 077; cp -n .env.example .env)
 make up
 ```
+
+The example contains a development-only secret. Startup requires `AUTH_SECRET`; keep the existing value on subsequent starts. See [deployment requirements](docs/architecture.md#deployment) before exposing the application publicly.
 
 Open the frontend at <http://localhost:3000>. The backend health endpoint is available at <http://localhost:8080/api/health>.
 
@@ -189,7 +194,7 @@ Install dependencies:
 go mod download
 ```
 
-Run the backend:
+Create the root `.env` from `.env.example` as shown above, then run the backend from `backend/`. The server loads `.env` automatically; exported environment variables take precedence:
 
 ```bash
 go run ./cmd/server

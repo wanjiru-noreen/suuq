@@ -1,6 +1,9 @@
 package database
 
 import (
+	"context"
+	"database/sql"
+	"path/filepath"
 	"testing"
 )
 
@@ -322,5 +325,64 @@ func TestTransactionItemConstraints(t *testing.T) {
 	`)
 	if err == nil {
 		t.Fatal("expected invalid product_id to be rejected")
+	}
+}
+
+func TestForeignKeysOnEveryConnection(t *testing.T) {
+	db, err := Open(filepath.Join(t.TempDir(), "database ?#.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	if err := Migrate(db); err != nil {
+		t.Fatal(err)
+	}
+	db.SetMaxOpenConns(2)
+	first, err := db.Conn(context.Background())
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer first.Close()
+	second, err := db.Conn(context.Background())
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer second.Close()
+	for _, conn := range []*sql.Conn{first, second} {
+		if _, err := conn.ExecContext(context.Background(), "INSERT INTO businesses (user_id, name) VALUES (999, 'Invalid')"); err == nil {
+			t.Fatal("connection accepted an invalid foreign key")
+		}
+	}
+}
+
+func TestMemoryDatabasesAreIsolated(t *testing.T) {
+	first, err := Open(":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer first.Close()
+	second, err := Open(":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer second.Close()
+	if err := Migrate(first); err != nil {
+		t.Fatal(err)
+	}
+	if err := Migrate(second); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := first.Exec("INSERT INTO users (name, email, password_hash) VALUES ('One', 'one@example.com', 'hash')"); err != nil {
+		t.Fatal(err)
+	}
+	var count int
+	if err := second.QueryRow("SELECT COUNT(*) FROM users").Scan(&count); err != nil {
+		t.Fatal(err)
+	}
+	if count != 0 {
+		t.Fatal("separate databases share user records")
+	}
+	if err := Migrate(first); err != nil {
+		t.Fatalf("repeat migration: %v", err)
 	}
 }
