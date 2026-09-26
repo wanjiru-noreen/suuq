@@ -124,4 +124,3 @@ func TestLoadDevelopmentEnvUnreadableFile(t *testing.T) {
 		t.Fatal("expected error for unreadable .env file, got nil")
 	}
 }
-
